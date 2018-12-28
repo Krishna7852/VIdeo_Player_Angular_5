@@ -1,13 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { YoutubeApiService } from '../../shared/services/youtube-api.service';
-import { YoutubePlayerService } from '../../shared/services/youtube-player.service';
 import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'videos-search',
   templateUrl: 'videos-search.component.html',
-  styleUrls: ['videos-search.component.css']
+  styleUrls: ['videos-search.component.scss']
 })
 
 export class VideosSearchComponent {
@@ -23,16 +22,15 @@ export class VideosSearchComponent {
   constructor(
     public fb: FormBuilder,
     private youtubeService: YoutubeApiService,
-    private youtubePlayer: YoutubePlayerService,
     private notificationService: NotificationService
   ) {
     this.youtubeService.searchVideos('')
       .then(data => {
         this.videosUpdated.emit(data);
-      })
+      });
   }
 
-  doSearch(event): void {
+ public doSearch(event): void {
     if (this.loadingInProgress ||
       (this.searchForm.value.query.trim().length === 0) ||
       (this.last_search && this.last_search === this.searchForm.value.query)) {

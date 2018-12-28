@@ -1,0 +1,15 @@
+:host {
+  form {
+    display: flex;
+    .text-field {
+      padding-right: 10px;
+      position: relative;
+      .fa-search {
+        position: absolute;
+        top: 10px;
+        right: 18px;
+        color: darkgray;
+      }
+    }
+  }
+}

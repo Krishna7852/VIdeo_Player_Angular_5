@@ -1,11 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { YoutubePlayerService } from '../../shared/services/youtube-player.service';
-import { PlaylistStoreService } from '../../shared/services/playlist-store.service';
 
 @Component({
   selector: 'videos-list',
   templateUrl: 'videos-list.component.html',
-  styleUrls: ['videos-list.component.css']
+  styleUrls: ['videos-list.component.scss']
 })
 
 export class VideosListComponent {
@@ -14,16 +13,16 @@ export class VideosListComponent {
   @Output() videoPlaylist = new EventEmitter();
 
   constructor(
-    private youtubePlayer: YoutubePlayerService,
-    private playlistService: PlaylistStoreService
+    private youtubePlayer: YoutubePlayerService
   ) { }
 
-  play(video: any): void {
+  public onPlay(video: any): void {
     this.youtubePlayer.playVideo(video.id, video.snippet.title);
     this.addToPlaylist(video);
   }
 
-  addToPlaylist(video: any): void {
+  private addToPlaylist(video: any): void {
+    // TODO: Awesome playList Will come soon
     this.videoPlaylist.emit(video);
   }
 }

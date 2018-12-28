@@ -1,0 +1,100 @@
+:host {
+  ul {
+    margin-top: 50px;
+    overflow-y: auto;
+    height: 88vh;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      list-style: none;
+      padding: 10px;
+      width: 290px;
+      .loader-progress {
+        position: relative;
+        width: 100%;
+        margin-bottom: 60px;
+        top: 0;
+        left: 0;
+      }
+
+      .loader-progress > .loading {
+        margin: 0 auto;
+      }
+
+      .demo-card-square > .mdl-card__title {
+        color: #fff;
+      }
+
+      .mdl-card__title {
+        height: 180px;
+        position: relative;
+        transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+      }
+
+      .mdl-card--expand:hover {
+        box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.3);
+        background-size: 130% !important;
+        cursor: pointer;
+      }
+
+      .mdl-card__supporting-text {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 6px 2px 2px 2px;
+        color: rgb(196, 48, 43);
+        text-align: right;
+        width: 97%;
+      }
+
+      .mdl-card__supporting-text .material-icons {
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .video {
+        &-name-block {
+          font-size: 11px;
+          font-weight: normal;
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 40px;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.45);
+        }
+        &-info-block {
+          font-size: 11px;
+          font-weight: normal;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 30px;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.45);
+        }
+        &-informations {
+          padding: 8px;
+          text-align: center;
+          i {
+            font-size: 11px;
+          }
+        }
+        &-play-button i {
+          font-size: 50px;
+          visibility: hidden;
+          position: absolute;
+          top: 60px;
+          left: 110px;
+        }
+      }
+
+      .mdl-card--expand:hover .video-play-button i {
+        visibility: visible;
+      }
+    }
+  }
+}

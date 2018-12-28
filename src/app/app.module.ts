@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { VideosListComponent } from './main/videos-list/videos-list.component';
-import { VideosPlaylistComponent } from './main/videos-playlist/videos-playlist.component';
 import { VideosSearchComponent } from './main/videos-search/videos-search.component';
 import { VideoPlayerComponent } from './main/video-player/video-player.component';
 // Services
@@ -19,7 +18,6 @@ import { BrowserNotificationService } from './shared/services/browser-notificati
 import { VideoDurationPipe } from './shared/pipes/video-duration.pipe';
 import { VideoLikesViewsPipe } from './shared/pipes/video-likes-views.pipe';
 import { VideoNamePipe } from './shared/pipes/video-name.pipe';
-import { LazyScrollDirective } from './shared/directives/lazy-scroll/lazy-scroll.directive';
 
 @NgModule({
   imports: [
@@ -34,13 +32,10 @@ import { LazyScrollDirective } from './shared/directives/lazy-scroll/lazy-scroll
     VideosListComponent,
     VideosSearchComponent,
     VideoPlayerComponent,
-    VideosPlaylistComponent,
 
     VideoDurationPipe,
     VideoLikesViewsPipe,
-    VideoNamePipe,
-
-    LazyScrollDirective
+    VideoNamePipe
   ],
   bootstrap: [
     AppComponent
