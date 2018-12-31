@@ -1,7 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { YoutubeApiService } from '../../shared/services/youtube-api.service';
-import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'videos-search',
@@ -9,7 +8,7 @@ import { NotificationService } from '../../shared/services/notification.service'
   styleUrls: ['videos-search.component.scss']
 })
 
-export class VideosSearchComponent {
+export class VideosSearchComponent implements OnChanges {
   @Output() videosUpdated = new EventEmitter();
   @Input() loadingInProgress;
 
@@ -21,31 +20,46 @@ export class VideosSearchComponent {
 
   constructor(
     public fb: FormBuilder,
-    private youtubeService: YoutubeApiService,
-    private notificationService: NotificationService
+    private youtubeService: YoutubeApiService
   ) {
-    this.youtubeService.searchVideos('')
-      .then(data => {
-        this.videosUpdated.emit(data);
-      });
+    this.initializeVideos = this.initializeVideos.bind(this);
+    this.toUpdateVideos = this.toUpdateVideos.bind(this);
+    this.errorHandler = this.errorHandler.bind(this);
   }
 
- public doSearch(event): void {
+
+  public ngOnChanges() {
+    this.loadVideos();
+  }
+
+  public doSearch(): void {
     if (this.loadingInProgress ||
-      (this.searchForm.value.query.trim().length === 0) ||
+      (!this.searchForm.value.query.trim().length) ||
       (this.last_search && this.last_search === this.searchForm.value.query)) {
       return;
     }
-
     this.videosUpdated.emit([]);
     this.last_search = this.searchForm.value.query;
+    this.loadVideos(this.last_search);
+  }
 
-    this.youtubeService.searchVideos(this.last_search)
-      .then(data => {
-        if (data.length < 1) {
-          this.notificationService.showNotification('No matches found.');
-        }
-        this.videosUpdated.emit(data);
-      })
+  private loadVideos(query: string = ''): void {
+    this.youtubeService.searchVideos(query).subscribe(this.initializeVideos, this.errorHandler);
+  }
+
+  private initializeVideos({ items }: any): void {
+    const keys = [];
+    items.forEach(({ id: { videoId } }) => {
+      keys.push(videoId);
+    });
+    this.youtubeService.getVideos(keys).subscribe(this.toUpdateVideos, this.errorHandler);
+  }
+
+  private toUpdateVideos({ items }: any): void {
+    this.videosUpdated.emit(items);
+  }
+
+  private errorHandler(error: any): void {
+    console.error('Error while loading API::-->', error);
   }
 }
